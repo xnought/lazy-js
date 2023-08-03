@@ -11,7 +11,7 @@ const a = new LazyArray([-1, 1, 2, 3]);
 const squared = a.lmap((v) => v ** 2);
 const sqrt = squared.lmap((v) => Math.sqrt(v));
 const even = sqrt.lfilter((v) => v % 2 === 0);
-// previous maps and filters aren't run until .evaluate(), and only one copy of memory (in one data iteration!)
+// previous maps and filters aren't run until .levaluate(), and only one copy of memory (in one data iteration!)
 console.log(even.levalulate());
 // [2]
 ```
