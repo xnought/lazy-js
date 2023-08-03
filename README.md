@@ -4,12 +4,14 @@ Instead of `.map()` and `.filter()` being computed on each call, lazily save the
 
 So now we just do one iteration over the data with one data copy.
 
+Just prefix with `l` for lazy and run `.levaluate()` when you want the values to be computed.
+
 ```js
 const a = new LazyArray([-1, 1, 2, 3]);
-const doubled = a.map((v) => 2 * v);
-const sqrt = doubled.map((v) => Math.sqrt(v));
-const even = sqrt.filter((v) => v % 2 === 0);
+const squared = a.lmap((v) => v ** 2);
+const sqrt = squared.lmap((v) => Math.sqrt(v));
+const even = sqrt.lfilter((v) => v % 2 === 0);
 // previous maps and filters aren't run until .evaluate(), and only one copy of memory (in one data iteration!)
-console.log(even.evaluate());
-//  [ 2 ]
+console.log(even.levalulate());
+// [2]
 ```

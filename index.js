@@ -1,20 +1,20 @@
-class LazyArray {
+class LazyArray extends Array {
 	constructor(data) {
-		this.data = data;
+		super(data);
 		this.ops = [];
 	}
-	map(func) {
+	lmap(func) {
 		this.ops.push({ type: "map", func });
 		return this;
 	}
-	filter(func) {
+	lfilter(func) {
 		this.ops.push({ type: "filter", func });
 		return this;
 	}
-	evaluate() {
-		const newCopy = new LazyArray([]);
-		for (let i = 0; i < this.data.length; i++) {
-			let d = this.data[i];
+	levalulate() {
+		const newCopy = new LazyArray(0);
+		for (let i = 0; i < this[0].length; i++) {
+			let d = this[0][i];
 			let filtered = false;
 			for (let j = 0; j < this.ops.length; j++) {
 				if (this.ops[j].type === "filter") {
@@ -30,17 +30,19 @@ class LazyArray {
 			}
 
 			if (!filtered) {
-				newCopy.data.push(d);
+				newCopy.push(d);
 			}
 		}
-		this.ops = [];
 		return newCopy;
+	}
+	lclear() {
+		this.ops = [];
 	}
 }
 
 const a = new LazyArray([-1, 1, 2, 3]);
-const doubled = a.map((v) => 2 * v);
-const sqrt = doubled.map((v) => Math.sqrt(v));
-const even = sqrt.filter((v) => v % 2 === 0);
+const squared = a.lmap((v) => v ** 2);
+const sqrt = squared.lmap((v) => Math.sqrt(v));
+const even = sqrt.lfilter((v) => v % 2 === 0);
 // previous maps and filters aren't run until .evaluate(), and only one copy of memory (in one data iteration!)
-console.log(even.evaluate());
+console.log(even.levalulate());
