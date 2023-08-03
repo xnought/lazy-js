@@ -11,4 +11,5 @@ const sqrt = doubled.map((v) => Math.sqrt(v));
 const even = sqrt.filter((v) => v % 2 === 0);
 // previous maps and filters aren't run until .evaluate(), and only one copy of memory (in one data iteration!)
 console.log(even.evaluate());
+//  [ 2 ]
 ```
