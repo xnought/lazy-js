@@ -24,7 +24,6 @@ const a = new LazyArray([1, 2, 3]);
 console.log(a);
 const output = a
 	.map((v) => v * 2)
-	.map((v) => v + 5)
 	.map((v) => v + 2)
 	.map((v) => v + 2)
 	.exec();
